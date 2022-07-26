@@ -4,16 +4,10 @@ const { Tag, Product, ProductTag } = require("../../models");
 // The `/api/tags` endpoint
 
 router.get("/", async (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
+  // finds all tags and associated product data
   try {
     const tagData = await Tag.findAll({
-      include: [
-        {
-          model: Product,
-          attributes: ["id", "product_name", "price", "stock", "category_id"],
-        },
-      ],
+      include: { model: Product },
     });
     if (!tagData) {
       res.status(404).json({ message: "No data found!" });
@@ -71,7 +65,7 @@ router.put("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  // delete on tag by its `id` value
+  // deletes on tag by its `id` value
   try {
     let deleteTag = await Tag.destroy({
       where: { id: req.params.id },
