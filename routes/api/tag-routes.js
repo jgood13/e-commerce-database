@@ -58,7 +58,7 @@ router.put("/:id", async (req, res) => {
     if (!updateTag) {
       res.status(404).json({ message: "Can't find tag" });
     }
-    res.status(200).json({ message: `Tag updated at ID: ${updateTag}` });
+    res.status(200).json({ message: `Tag updated at ID: ${req.params.id}` });
   } catch (err) {
     res.status(500).json(err);
   }
